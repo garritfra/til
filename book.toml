@@ -1,0 +1,6 @@
+[book]
+authors = ["garritfra"]
+language = "en"
+multilingual = false
+src = "src"
+title = "TIL"
