@@ -8,8 +8,8 @@ To change the launchMode of an activity, simply add the `launchMode` attribute i
 
 ```xml
 <activity
-    android:name=".SingleTaskActivity"
-    android:label="singleTask launchMode"
+    android:name=".SingleInstanceActivity"
+    android:label="singleInstance launchMode"
     android:launchMode="singleInstance">
 ```
 
