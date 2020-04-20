@@ -23,4 +23,4 @@ startActivity(intent);
 
 ### Further reading:
 
-https://inthecheesefactory.com/blog/understand-android-activity-launchmode/en
+- [https://inthecheesefactory.com/blog/understand-android-activity-launchmode/en](https://inthecheesefactory.com/blog/understand-android-activity-launchmode/en)
