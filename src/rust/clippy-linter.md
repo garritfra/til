@@ -21,4 +21,4 @@ To run clippy, `cd` into your project and run the following command:
 cargo clippy
 ```
 
-é voila!
+Et voilà!
