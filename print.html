@@ -83,7 +83,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded affix "><a href="SUMMARY.html">Summary</a></li><li class="chapter-item expanded affix "><a href="about.html">About</a></li><li class="chapter-item expanded "><a href="android/android.html"><strong aria-hidden="true">1.</strong> android</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="android/single-instance-launchmode.html"><strong aria-hidden="true">1.1.</strong> Single Instance Launchmode</a></li></ol></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="SUMMARY.html">Summary</a></li><li class="chapter-item expanded affix "><a href="about.html">About</a></li><li class="chapter-item expanded "><a href="android/android.html"><strong aria-hidden="true">1.</strong> android</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="android/single-instance-launchmode.html"><strong aria-hidden="true">1.1.</strong> Single Instance Launchmode</a></li></ol></li><li class="chapter-item expanded "><a href="rust/rust.html"><strong aria-hidden="true">2.</strong> Rust</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="rust/clippy-linter.html"><strong aria-hidden="true">2.1.</strong> Clippy Linter</a></li></ol></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -161,6 +161,14 @@
 </ul>
 </li>
 </ul>
+<h1><a class="header" href="#rust" id="rust">Rust</a></h1>
+<ul>
+<li><a href="./rust/rust.html">Rust</a>
+<ul>
+<li><a href="./rust/clippy-linter.html">Clippy Linter</a></li>
+</ul>
+</li>
+</ul>
 <h1><a class="header" href="#about" id="about">About</a></h1>
 <p>This book contains writeups of things that I learn from day to day. The Idea came from <a href="https://news.ycombinator.com/item?id=22908044">this</a> HN post.</p>
 <h1><a class="header" href="#android-1" id="android-1">Android</a></h1>
@@ -182,6 +190,23 @@ startActivity(intent);
 <ul>
 <li><a href="https://inthecheesefactory.com/blog/understand-android-activity-launchmode/en">https://inthecheesefactory.com/blog/understand-android-activity-launchmode/en</a></li>
 </ul>
+<h1><a class="header" href="#rust-1" id="rust-1">Rust</a></h1>
+<h1><a class="header" href="#using-the-clippy-linter-to-spot-common-mistakes" id="using-the-clippy-linter-to-spot-common-mistakes">Using the Clippy linter to spot common mistakes</a></h1>
+<p>Using <a href="https://github.com/rust-lang/rust-clippy">a linter that is developed by the Rust team</a>, you can spot common mistakes in your Rust code.</p>
+<p>Run the following commands to install Clippy:</p>
+<pre><code class="language-bash"># Update rust version
+rustup update
+
+# Add clippy as a rustup component
+rustup component add clippy
+
+# If it says that it cant find the clippy component, run this
+rustup self update
+</code></pre>
+<p>To run clippy, <code>cd</code> into your project and run the following command:</p>
+<pre><code class="language-bash">cargo clippy
+</code></pre>
+<p>é voila!</p>
 
                     </main>
 
