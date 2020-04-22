@@ -83,7 +83,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded affix "><a href="SUMMARY.html">Summary</a></li><li class="chapter-item expanded affix "><a href="about.html">About</a></li><li class="chapter-item expanded "><a href="android/android.html"><strong aria-hidden="true">1.</strong> android</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="android/single-instance-launchmode.html"><strong aria-hidden="true">1.1.</strong> Single Instance Launchmode</a></li></ol></li><li class="chapter-item expanded "><a href="rust/rust.html"><strong aria-hidden="true">2.</strong> Rust</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="rust/clippy-linter.html"><strong aria-hidden="true">2.1.</strong> Clippy Linter</a></li></ol></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="SUMMARY.html">Summary</a></li><li class="chapter-item expanded affix "><a href="about.html">About</a></li><li class="chapter-item expanded "><a href="android/android.html"><strong aria-hidden="true">1.</strong> android</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="android/securing-files.html"><strong aria-hidden="true">1.1.</strong> Securing Files</a></li><li class="chapter-item expanded "><a href="android/single-instance-launchmode.html"><strong aria-hidden="true">1.2.</strong> Single Instance Launchmode</a></li></ol></li><li class="chapter-item expanded "><a href="rust/rust.html"><strong aria-hidden="true">2.</strong> Rust</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="rust/clippy-linter.html"><strong aria-hidden="true">2.1.</strong> Clippy Linter</a></li></ol></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -157,6 +157,7 @@
 <ul>
 <li><a href="./android/android.html">android</a>
 <ul>
+<li><a href="./android/securing-files.html">Securing Files</a></li>
 <li><a href="./android/single-instance-launchmode.html">Single Instance Launchmode</a></li>
 </ul>
 </li>
@@ -172,6 +173,48 @@
 <h1><a class="header" href="#about" id="about">About</a></h1>
 <p>This book contains writeups of things that I learn from day to day. The Idea came from <a href="https://news.ycombinator.com/item?id=22908044">this</a> HN post.</p>
 <h1><a class="header" href="#android-1" id="android-1">Android</a></h1>
+<h1><a class="header" href="#securing-files-on-the-file-system" id="securing-files-on-the-file-system">Securing Files on the file system</a></h1>
+<p>Android provides an easy way to encrypt files that are stored in the file system of the device, using the <code>EncryptedFile</code> class:</p>
+<pre><code class="language-kotlin">val keyGenParameterSpec = MasterKeys.AES256_GCM_SPEC
+val masterKeyAlias = MasterKeys.getOrCreate(keyGenParameterSpec)
+
+val fileToWrite = &quot;my_sensitive_data.txt&quot;
+
+val encryptedFile = EncryptedFile.Builder(
+    File(directory, fileToWrite),
+    context,
+    masterKeyAlias,
+    EncryptedFile.FileEncryptionScheme.AES256_GCM_HKDF_4KB
+).build()
+
+encryptedFile.openFileOutput().bufferedWriter().use {
+    it.write(&quot;MY SUPER-SECRET INFORMATION&quot;)
+}
+</code></pre>
+<p>If a master key has already been generated on the device, it will be used. Otherwise, a new key will be generated.</p>
+<p>To read a file, you can use the following snippet:</p>
+<pre><code class="language-kotlin">val keyGenParameterSpec = MasterKeys.AES256_GCM_SPEC
+val masterKeyAlias = MasterKeys.getOrCreate(keyGenParameterSpec)
+
+val fileToRead = &quot;my_sensitive_data.txt&quot;
+val encryptedFile = EncryptedFile.Builder(
+    File(directory, fileToRead),
+    context,
+    masterKeyAlias,
+    EncryptedFile.FileEncryptionScheme.AES256_GCM_HKDF_4KB
+).build()
+
+val contents = encryptedFile.bufferedReader().useLines { lines -&gt;
+    lines.fold(&quot;&quot;) { working, line -&gt;
+        &quot;$working\n$line&quot;
+    }
+}
+</code></pre>
+<p>This makes sure that the data on the device is encrypted, without much hassle.</p>
+<h3><a class="header" href="#references" id="references">References</a></h3>
+<ul>
+<li>https://developer.android.com/topic/security/data#kotlin</li>
+</ul>
 <h1><a class="header" href="#android-activity-launchmode" id="android-activity-launchmode">Android activity launchMode</a></h1>
 <p>By default, an activity in android has the <code>standard</code> launchMode. If it is used by an activity, every Intent will create a new activity and launch it on top of the rest.</p>
 <p>Using the <code>singleInstance</code> launchMode will only create a new activity, if there is no activity of that type yet. If there <strong>is</strong> an activity of the same kind in the background, this activity will be moved to foreground instead.</p>
