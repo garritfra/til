@@ -47,4 +47,4 @@ This makes sure that the data on the device is encrypted, without much hassle.
 
 ### References
 
-- https://developer.android.com/topic/security/data#kotlin
+- [https://developer.android.com/topic/security/data#kotlin](https://developer.android.com/topic/security/data#kotlin)
