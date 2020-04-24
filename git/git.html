@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>Lightweight Vpn with Wireguard - TIL</title>
+        <title>Git - TIL</title>
         
 
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
@@ -81,7 +81,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded affix "><a href="../SUMMARY.html">Summary</a></li><li class="chapter-item expanded affix "><a href="../about.html">About</a></li><li class="chapter-item expanded "><a href="../android/android.html"><strong aria-hidden="true">1.</strong> android</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../android/securing-files.html"><strong aria-hidden="true">1.1.</strong> Securing Files</a></li><li class="chapter-item expanded "><a href="../android/single-instance-launchmode.html"><strong aria-hidden="true">1.2.</strong> Single Instance Launchmode</a></li></ol></li><li class="chapter-item expanded "><a href="../git/git.html"><strong aria-hidden="true">2.</strong> Git</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../git/count-lines-of-code.html"><strong aria-hidden="true">2.1.</strong> Count Lines Of Code</a></li></ol></li><li class="chapter-item expanded "><a href="../rust/rust.html"><strong aria-hidden="true">3.</strong> Rust</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../rust/clippy-linter.html"><strong aria-hidden="true">3.1.</strong> Clippy Linter</a></li></ol></li><li class="chapter-item expanded "><a href="../unix/unix.html"><strong aria-hidden="true">4.</strong> Unix</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../unix/lightweight-vpn-with-wireguard.html" class="active"><strong aria-hidden="true">4.1.</strong> Lightweight Vpn with Wireguard</a></li></ol></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="../SUMMARY.html">Summary</a></li><li class="chapter-item expanded affix "><a href="../about.html">About</a></li><li class="chapter-item expanded "><a href="../android/android.html"><strong aria-hidden="true">1.</strong> android</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../android/securing-files.html"><strong aria-hidden="true">1.1.</strong> Securing Files</a></li><li class="chapter-item expanded "><a href="../android/single-instance-launchmode.html"><strong aria-hidden="true">1.2.</strong> Single Instance Launchmode</a></li></ol></li><li class="chapter-item expanded "><a href="../git/git.html" class="active"><strong aria-hidden="true">2.</strong> Git</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../git/count-lines-of-code.html"><strong aria-hidden="true">2.1.</strong> Count Lines Of Code</a></li></ol></li><li class="chapter-item expanded "><a href="../rust/rust.html"><strong aria-hidden="true">3.</strong> Rust</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../rust/clippy-linter.html"><strong aria-hidden="true">3.1.</strong> Clippy Linter</a></li></ol></li><li class="chapter-item expanded "><a href="../unix/unix.html"><strong aria-hidden="true">4.</strong> Unix</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../unix/lightweight-vpn-with-wireguard.html"><strong aria-hidden="true">4.1.</strong> Lightweight Vpn with Wireguard</a></li></ol></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -147,73 +147,22 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1><a class="header" href="#setting-up-a-lightweight-server-client-vpn-with-wireguard" id="setting-up-a-lightweight-server-client-vpn-with-wireguard">Setting up a lightweight Server-Client VPN with wireguard</a></h1>
-<p>You can set up a private network of your devices. This way you can &quot;talk&quot; to your phone, raspberry pi etc. over an <strong>encrypted</strong> network, with simple IP-addresses.</p>
-<p>Firstly, install wireguard on all of your systems. Simply install the <code>wireguard</code> package from your package manager respectively. Check out <a href="https://www.wireguard.com/install/">the official installation guide</a> if you can't find the package. If you're on debian, try <a href="https://wiki.debian.org/WireGuard?action=show&amp;redirect=Wireguard">this</a> guide. There's also an app for Android, iOS and MacOS.</p>
-<p>Every participent (Client and server) needs a key-pair. To generate this, run this command first on the server, and on all clients:</p>
-<pre><code class="language-bash">wg genkey | tee wg-private.key | wg pubkey &gt; wg-public.key
-</code></pre>
-<p>It might make sense to do this as root. This way you don't have to type <code>sudo</code> with every command.</p>
-<h2><a class="header" href="#server-configuration" id="server-configuration">Server Configuration</a></h2>
-<p>You will need to create a configuration for the server. Save this template at <code>/etc/wireguard/wg0.conf</code>, and replace the fields where needed:</p>
-<pre><code class="language-conf">[Interface]
-PrivateKey = &lt;Server private key from wg-private.key&gt;
-Address = 10.0.0.1/24 # IP Address of the server. Using this IP Address, you can assign IPs ranging from 10.0.0.2 - 10.0.0.254 to your clients
-ListenPort = 51820 # This is the standard port for wireguard
-
-# The following fields will take care of routing
-PostUp = iptables -A FORWARD -i %i -j ACCEPT; iptables -A FORWARD -o %i -j ACCEPT; iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE
-PostDown = iptables -D FORWARD -i %i -j ACCEPT; iptables -D FORWARD -o %i -j ACCEPT; iptables -t nat -D POSTROUTING -o eth0 -j MASQUERADE
-
-# Laptop
-[Peer]
-PublicKey = &lt;Public Key of Laptop Client&gt;
-AllowedIPs = 10.0.0.2/32 # The client will be reachable at this address
-
-# Android Phone
-[Peer]
-PublicKey = &lt;Public Key of Phone Client&gt;
-AllowedIPs = 10.0.0.3/32
-
-# ...
-</code></pre>
-<p>Then run <code>wg-quick up wg0</code> to start the wireguard interface with the configuration from <code>/etc/wireguard/wg0</code>.</p>
-<h2><a class="header" href="#setting-up-clients" id="setting-up-clients">Setting up clients</a></h2>
-<p>Setting up clients is very similar to the server setup process. Generate a keypair on each client, save the following config to <code>/etc/wireguard/wg0.conf</code> and replace the nessessary fields:</p>
-<pre><code class="language-conf">[Interface]
-PrivateKey = &lt;Client Private Key from wg-private.key&gt;
-Address = 10.0.0.2/32 # The fixed address of the client. Needs to be specified in the server config as well
-
-[Peer]
-PublicKey = &lt;Server Public key&gt;
-AllowedIPs = 10.0.0.0/24 # Routes all traffic in this subnet to the server. If you want to tunnel all traffic through the wireguard connection, use 0.0.0.0/0 here instead
-Endpoint = &lt;Public Server IP&gt;:51820
-PersistentKeepalive = 25 # Optional. Will ping the server every 25 seconds to remain connected.
-</code></pre>
-<p>On every client, run <code>wg-quick up wg0</code> to start the interface using the config at <code>/etc/wireguard/wg0.conf</code>.</p>
-<p>This whole proccess might be easier on GUIs like Android or MacOS.</p>
-<p>Now, try to ping your phone from your laptop:</p>
-<pre><code>ping 10.0.0.3
-PING 10.0.0.3 (10.0.0.3) 56(84) bytes of data.
-64 bytes from 10.0.0.3: icmp_seq=1 ttl=64 time=5382 ms
-64 bytes from 10.0.0.3: icmp_seq=2 ttl=64 time=4364 ms
-</code></pre>
-<h3><a class="header" href="#references" id="references">References</a></h3>
-<ul>
-<li><a href="https://www.wireguard.com/">Official Documentation</a></li>
-<li><a href="https://www.stavros.io/posts/how-to-configure-wireguard/">https://www.stavros.io/posts/how-to-configure-wireguard/</a></li>
-</ul>
+                        <h1><a class="header" href="#git" id="git">Git</a></h1>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
                         
-                            <a rel="prev" href="../unix/unix.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="../android/single-instance-launchmode.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
                         
 
+                        
+                            <a rel="next" href="../git/count-lines-of-code.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
                         
 
                         <div style="clear: both"></div>
@@ -223,11 +172,15 @@ PING 10.0.0.3 (10.0.0.3) 56(84) bytes of data.
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
                 
-                    <a rel="prev" href="../unix/unix.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="../android/single-instance-launchmode.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
                 
 
+                
+                    <a rel="next" href="../git/count-lines-of-code.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
                 
             </nav>
 
