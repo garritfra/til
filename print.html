@@ -83,7 +83,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded affix "><a href="SUMMARY.html">Summary</a></li><li class="chapter-item expanded affix "><a href="about.html">About</a></li><li class="chapter-item expanded "><a href="android/android.html"><strong aria-hidden="true">1.</strong> android</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="android/avoiding-transient-dependencies.html"><strong aria-hidden="true">1.1.</strong> Avoiding Transient Dependencies</a></li><li class="chapter-item expanded "><a href="android/securing-files.html"><strong aria-hidden="true">1.2.</strong> Securing Files</a></li><li class="chapter-item expanded "><a href="android/single-instance-launchmode.html"><strong aria-hidden="true">1.3.</strong> Single Instance Launchmode</a></li></ol></li><li class="chapter-item expanded "><a href="git/git.html"><strong aria-hidden="true">2.</strong> Git</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="git/count-lines-of-code.html"><strong aria-hidden="true">2.1.</strong> Count Lines Of Code</a></li></ol></li><li class="chapter-item expanded "><a href="rust/rust.html"><strong aria-hidden="true">3.</strong> Rust</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="rust/clippy-linter.html"><strong aria-hidden="true">3.1.</strong> Clippy Linter</a></li></ol></li><li class="chapter-item expanded "><a href="unix/unix.html"><strong aria-hidden="true">4.</strong> Unix</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="unix/lightweight-vpn-with-wireguard.html"><strong aria-hidden="true">4.1.</strong> Lightweight Vpn with Wireguard</a></li><li class="chapter-item expanded "><a href="unix/recursive-command-execution.html"><strong aria-hidden="true">4.2.</strong> Recursive Command Execution</a></li></ol></li><li class="chapter-item expanded "><a href="vim/vim.html"><strong aria-hidden="true">5.</strong> Vim</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="vim/jumps.html"><strong aria-hidden="true">5.1.</strong> Jumps</a></li><li class="chapter-item expanded "><a href="vim/tabs.html"><strong aria-hidden="true">5.2.</strong> Tabs</a></li></ol></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="SUMMARY.html">Summary</a></li><li class="chapter-item expanded affix "><a href="about.html">About</a></li><li class="chapter-item expanded "><a href="android/android.html"><strong aria-hidden="true">1.</strong> android</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="android/avoiding-transient-dependencies.html"><strong aria-hidden="true">1.1.</strong> Avoiding Transient Dependencies</a></li><li class="chapter-item expanded "><a href="android/securing-files.html"><strong aria-hidden="true">1.2.</strong> Securing Files</a></li><li class="chapter-item expanded "><a href="android/single-instance-launchmode.html"><strong aria-hidden="true">1.3.</strong> Single Instance Launchmode</a></li></ol></li><li class="chapter-item expanded "><a href="git/git.html"><strong aria-hidden="true">2.</strong> Git</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="git/count-lines-of-code.html"><strong aria-hidden="true">2.1.</strong> Count Lines Of Code</a></li></ol></li><li class="chapter-item expanded "><a href="rust/rust.html"><strong aria-hidden="true">3.</strong> Rust</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="rust/clippy-linter.html"><strong aria-hidden="true">3.1.</strong> Clippy Linter</a></li></ol></li><li class="chapter-item expanded "><a href="unix/unix.html"><strong aria-hidden="true">4.</strong> Unix</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="unix/lightweight-vpn-with-wireguard.html"><strong aria-hidden="true">4.1.</strong> Lightweight Vpn with Wireguard</a></li><li class="chapter-item expanded "><a href="unix/recursive-command-execution.html"><strong aria-hidden="true">4.2.</strong> Recursive Command Execution</a></li><li class="chapter-item expanded "><a href="unix/simple-dns-server.html"><strong aria-hidden="true">4.3.</strong> Simple Dns Server</a></li></ol></li><li class="chapter-item expanded "><a href="vim/vim.html"><strong aria-hidden="true">5.</strong> Vim</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="vim/jumps.html"><strong aria-hidden="true">5.1.</strong> Jumps</a></li><li class="chapter-item expanded "><a href="vim/tabs.html"><strong aria-hidden="true">5.2.</strong> Tabs</a></li></ol></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -185,6 +185,7 @@
 <ul>
 <li><a href="./unix/lightweight-vpn-with-wireguard.html">Lightweight Vpn with Wireguard</a></li>
 <li><a href="./unix/recursive-command-execution.html">Recursive Command Execution</a></li>
+<li><a href="./unix/simple-dns-server.html">Simple Dns Server</a></li>
 </ul>
 </li>
 </ul>
@@ -375,6 +376,47 @@ PING 10.0.0.3 (10.0.0.3) 56(84) bytes of data.
 <ul>
 <li><a href="https://stackoverflow.com/a/54309503/9046809">https://stackoverflow.com/a/54309503/9046809</a></li>
 </ul>
+<h1><a class="header" href="#setting-up-a-simple-dns-server-using-dnsmasq" id="setting-up-a-simple-dns-server-using-dnsmasq">Setting up a simple dns server using dnsmasq</a></h1>
+<p>You can set up a simple dns server for your lan or vpn. In my case, I use wireguard to set up a vpn and dnsmasq to access the clients through a nice domain name.</p>
+<p>Simply install the <code>dnsmasq</code> package from your package manager (apt, pacman, yum...).</p>
+<p>Afterwards, edit the <code>/etc/dnsmasq.conf</code> file with the following content:</p>
+<pre><code>domain-needed
+bogus-privexpand-hosts
+ 
+listen-address=127.0.0.1
+listen-address=&lt;local ip of server (e.g. 192.168.0.1)&gt;
+bind-interfaces
+ 
+# Use open source DNS servers (googles 8.8.8.8 dns server is a viable option, but I switched to 1.1.1.1 some time ago)
+server=1.1.1.1
+server=208.67.220.220
+</code></pre>
+<p>Check the status of the service using <code>sudo systemctl status dnsmasq</code>. You might need to restart it by using <code>sudo systemctl restart dnsmasq</code></p>
+<p>Now, you can add custom hosts to <code>/etc/hosts</code>:</p>
+<pre><code>127.0.0.1	localhost
+127.0.1.1	debian
+
+# The following lines are desirable for IPv6 capable hosts
+::1     localhost ip6-localhost ip6-loopback
+ff02::1 ip6-allnodes
+ff02::2 ip6-allrouters
+
+
+# Add hosts here in format &lt;ip&gt; &lt;domainname&gt;
+10.0.0.2 mycustomdomain
+</code></pre>
+<p>You will need to add your dns server in your clients dns settings. Look up how to add a custom dns server for your platform.</p>
+<p>If you are using wireguard, you can specify the <code>DNS</code> option in each client interface config:</p>
+<pre><code>[Interface]
+PrivateKey = &lt;hidden&gt;
+Address = 10.0.0.2/32
+DNS = &lt;ip of dns server&gt;
+</code></pre>
+<p>Don't forget to restart the wirguard interface afterwards.</p>
+<h2><a class="header" href="#further-reading-3" id="further-reading-3">Further reading</a></h2>
+<ul>
+<li><a href="https://medium.com/nuculabs/setting-up-a-simple-dns-server-859de750f6fe">https://medium.com/nuculabs/setting-up-a-simple-dns-server-859de750f6fe</a></li>
+</ul>
 <h1><a class="header" href="#vim-1" id="vim-1">Vim</a></h1>
 <h1><a class="header" href="#jumping-between-last-positions" id="jumping-between-last-positions">Jumping between last positions</a></h1>
 <p>You can list all previous jumps using the <code>:jumps</code> command.</p>
@@ -383,7 +425,7 @@ PING 10.0.0.3 (10.0.0.3) 56(84) bytes of data.
 <li>Press <code>Ctrl-O</code> to jump backwards</li>
 <li>Press <code>2</code> and then <code>Ctrl-O</code> to jump backwards twice</li>
 </ul>
-<h2><a class="header" href="#further-reading-3" id="further-reading-3">Further Reading</a></h2>
+<h2><a class="header" href="#further-reading-4" id="further-reading-4">Further Reading</a></h2>
 <ul>
 <li><a href="https://vim.fandom.com/wiki/Jumping_to_previously_visited_locations">https://vim.fandom.com/wiki/Jumping_to_previously_visited_locations</a></li>
 </ul>
@@ -405,7 +447,7 @@ PING 10.0.0.3 (10.0.0.3) 56(84) bytes of data.
 :tabfirst     go to first tab
 :tablast      go to last tab
 </code></pre>
-<h2><a class="header" href="#further-reading-4" id="further-reading-4">Further reading</a></h2>
+<h2><a class="header" href="#further-reading-5" id="further-reading-5">Further reading</a></h2>
 <ul>
 <li><a href="https://vim.fandom.com/wiki/Using_tab_pages">https://vim.fandom.com/wiki/Using_tab_pages</a></li>
 </ul>
