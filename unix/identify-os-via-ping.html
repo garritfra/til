@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>Count Lines Of Code - TIL</title>
+        <title>Identify Os Via Ping - TIL</title>
         
 
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
@@ -81,7 +81,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded affix "><a href="../SUMMARY.html">Summary</a></li><li class="chapter-item expanded affix "><a href="../about.html">About</a></li><li class="chapter-item expanded "><a href="../android/android.html"><strong aria-hidden="true">1.</strong> android</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../android/avoiding-transient-dependencies.html"><strong aria-hidden="true">1.1.</strong> Avoiding Transient Dependencies</a></li><li class="chapter-item expanded "><a href="../android/securing-files.html"><strong aria-hidden="true">1.2.</strong> Securing Files</a></li><li class="chapter-item expanded "><a href="../android/single-instance-launchmode.html"><strong aria-hidden="true">1.3.</strong> Single Instance Launchmode</a></li></ol></li><li class="chapter-item expanded "><a href="../git/git.html"><strong aria-hidden="true">2.</strong> Git</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../git/count-lines-of-code.html" class="active"><strong aria-hidden="true">2.1.</strong> Count Lines Of Code</a></li></ol></li><li class="chapter-item expanded "><a href="../rust/rust.html"><strong aria-hidden="true">3.</strong> Rust</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../rust/clippy-linter.html"><strong aria-hidden="true">3.1.</strong> Clippy Linter</a></li></ol></li><li class="chapter-item expanded "><a href="../unix/unix.html"><strong aria-hidden="true">4.</strong> Unix</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../unix/identify-os-via-ping.html"><strong aria-hidden="true">4.1.</strong> Identify Os Via Ping</a></li><li class="chapter-item expanded "><a href="../unix/lightweight-vpn-with-wireguard.html"><strong aria-hidden="true">4.2.</strong> Lightweight Vpn with Wireguard</a></li><li class="chapter-item expanded "><a href="../unix/recursive-command-execution.html"><strong aria-hidden="true">4.3.</strong> Recursive Command Execution</a></li><li class="chapter-item expanded "><a href="../unix/simple-dns-server.html"><strong aria-hidden="true">4.4.</strong> Simple Dns Server</a></li></ol></li><li class="chapter-item expanded "><a href="../vim/vim.html"><strong aria-hidden="true">5.</strong> Vim</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../vim/jumps.html"><strong aria-hidden="true">5.1.</strong> Jumps</a></li><li class="chapter-item expanded "><a href="../vim/tabs.html"><strong aria-hidden="true">5.2.</strong> Tabs</a></li></ol></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="../SUMMARY.html">Summary</a></li><li class="chapter-item expanded affix "><a href="../about.html">About</a></li><li class="chapter-item expanded "><a href="../android/android.html"><strong aria-hidden="true">1.</strong> android</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../android/avoiding-transient-dependencies.html"><strong aria-hidden="true">1.1.</strong> Avoiding Transient Dependencies</a></li><li class="chapter-item expanded "><a href="../android/securing-files.html"><strong aria-hidden="true">1.2.</strong> Securing Files</a></li><li class="chapter-item expanded "><a href="../android/single-instance-launchmode.html"><strong aria-hidden="true">1.3.</strong> Single Instance Launchmode</a></li></ol></li><li class="chapter-item expanded "><a href="../git/git.html"><strong aria-hidden="true">2.</strong> Git</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../git/count-lines-of-code.html"><strong aria-hidden="true">2.1.</strong> Count Lines Of Code</a></li></ol></li><li class="chapter-item expanded "><a href="../rust/rust.html"><strong aria-hidden="true">3.</strong> Rust</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../rust/clippy-linter.html"><strong aria-hidden="true">3.1.</strong> Clippy Linter</a></li></ol></li><li class="chapter-item expanded "><a href="../unix/unix.html"><strong aria-hidden="true">4.</strong> Unix</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../unix/identify-os-via-ping.html" class="active"><strong aria-hidden="true">4.1.</strong> Identify Os Via Ping</a></li><li class="chapter-item expanded "><a href="../unix/lightweight-vpn-with-wireguard.html"><strong aria-hidden="true">4.2.</strong> Lightweight Vpn with Wireguard</a></li><li class="chapter-item expanded "><a href="../unix/recursive-command-execution.html"><strong aria-hidden="true">4.3.</strong> Recursive Command Execution</a></li><li class="chapter-item expanded "><a href="../unix/simple-dns-server.html"><strong aria-hidden="true">4.4.</strong> Simple Dns Server</a></li></ol></li><li class="chapter-item expanded "><a href="../vim/vim.html"><strong aria-hidden="true">5.</strong> Vim</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../vim/jumps.html"><strong aria-hidden="true">5.1.</strong> Jumps</a></li><li class="chapter-item expanded "><a href="../vim/tabs.html"><strong aria-hidden="true">5.2.</strong> Tabs</a></li></ol></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -147,20 +147,21 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1><a class="header" href="#counting-the-lines-of-code-in-a-git-repository" id="counting-the-lines-of-code-in-a-git-repository">Counting the lines of code in a git repository</a></h1>
-<p>You can count the lines of code in a git repository by running the following command:</p>
-<pre><code class="language-bash">git ls-files | xargs cat | wc -l
+                        <h1><a class="header" href="#identifying-a-remote-host-os-via-ping" id="identifying-a-remote-host-os-via-ping">Identifying a remote host OS via ping</a></h1>
+<p>When you ping a remote host, you typically get an output like this:</p>
+<pre><code>64 bytes from 10.0.0.1: icmp_seq=0 ttl=64 time=13.038 ms
+64 bytes from 10.0.0.1: icmp_seq=1 ttl=64 time=13.632 ms
 </code></pre>
-<p>This will</p>
-<ol>
-<li>List all files known to Git</li>
-<li>Concatenate them all into one large file</li>
-<li>Count all lines in that file</li>
-</ol>
-<p>Alternatively, you can use a tool called <a href="https://github.com/AlDanial/cloc">Cloc</a> to get a better breakdown of all your files.</p>
-<h1><a class="header" href="#references" id="references">References</a></h1>
+<p>You can identify the OS of the pinged host by checking its <code>time-to-live</code> (ttl) attribute.</p>
+<p>Here are the TTLs of the most common OS:</p>
+<table><thead><tr><th>OS</th><th>TTL</th></tr></thead><tbody>
+<tr><td>Linux/Unix</td><td>64</td></tr>
+<tr><td>Windows</td><td>128</td></tr>
+<tr><td>Solaris/AIX</td><td>256</td></tr>
+</tbody></table>
+<h2><a class="header" href="#references" id="references">References</a></h2>
 <ul>
-<li><a href="https://stackoverflow.com/a/4822516/9046809">https://stackoverflow.com/a/4822516/9046809</a></li>
+<li><a href="https://shibumi.dev/posts/identify-the-os-via-ping/">https://shibumi.dev/posts/identify-the-os-via-ping/</a></li>
 </ul>
 
                     </main>
@@ -168,13 +169,13 @@
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
                         
-                            <a rel="prev" href="../git/git.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="../unix/unix.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
                         
 
                         
-                            <a rel="next" href="../rust/rust.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next" href="../unix/lightweight-vpn-with-wireguard.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <i class="fa fa-angle-right"></i>
                             </a>
                         
@@ -186,13 +187,13 @@
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
                 
-                    <a rel="prev" href="../git/git.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="../unix/unix.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
                 
 
                 
-                    <a rel="next" href="../rust/rust.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next" href="../unix/lightweight-vpn-with-wireguard.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
                 
