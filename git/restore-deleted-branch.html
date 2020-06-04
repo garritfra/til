@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>Avoiding Transient Dependencies - TIL</title>
+        <title>Restore Deleted Branch - TIL</title>
         
 
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
@@ -81,7 +81,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded affix "><a href="../SUMMARY.html">Summary</a></li><li class="chapter-item expanded affix "><a href="../about.html">About</a></li><li class="chapter-item expanded "><a href="../android/android.html"><strong aria-hidden="true">1.</strong> android</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../android/avoiding-transient-dependencies.html" class="active"><strong aria-hidden="true">1.1.</strong> Avoiding Transient Dependencies</a></li><li class="chapter-item expanded "><a href="../android/securing-files.html"><strong aria-hidden="true">1.2.</strong> Securing Files</a></li><li class="chapter-item expanded "><a href="../android/single-instance-launchmode.html"><strong aria-hidden="true">1.3.</strong> Single Instance Launchmode</a></li></ol></li><li class="chapter-item expanded "><a href="../git/git.html"><strong aria-hidden="true">2.</strong> Git</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../git/count-lines-of-code.html"><strong aria-hidden="true">2.1.</strong> Count Lines Of Code</a></li><li class="chapter-item expanded "><a href="../git/restore-deleted-branch.html"><strong aria-hidden="true">2.2.</strong> Restore Deleted Branch</a></li></ol></li><li class="chapter-item expanded "><a href="../rust/rust.html"><strong aria-hidden="true">3.</strong> Rust</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../rust/clippy-linter.html"><strong aria-hidden="true">3.1.</strong> Clippy Linter</a></li></ol></li><li class="chapter-item expanded "><a href="../unix/unix.html"><strong aria-hidden="true">4.</strong> Unix</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../unix/identify-os-via-ping.html"><strong aria-hidden="true">4.1.</strong> Identify Os Via Ping</a></li><li class="chapter-item expanded "><a href="../unix/lightweight-vpn-with-wireguard.html"><strong aria-hidden="true">4.2.</strong> Lightweight Vpn with Wireguard</a></li><li class="chapter-item expanded "><a href="../unix/recursive-command-execution.html"><strong aria-hidden="true">4.3.</strong> Recursive Command Execution</a></li><li class="chapter-item expanded "><a href="../unix/simple-dns-server.html"><strong aria-hidden="true">4.4.</strong> Simple Dns Server</a></li></ol></li><li class="chapter-item expanded "><a href="../vim/vim.html"><strong aria-hidden="true">5.</strong> Vim</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../vim/jumps.html"><strong aria-hidden="true">5.1.</strong> Jumps</a></li><li class="chapter-item expanded "><a href="../vim/tabs.html"><strong aria-hidden="true">5.2.</strong> Tabs</a></li></ol></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="../SUMMARY.html">Summary</a></li><li class="chapter-item expanded affix "><a href="../about.html">About</a></li><li class="chapter-item expanded "><a href="../android/android.html"><strong aria-hidden="true">1.</strong> android</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../android/avoiding-transient-dependencies.html"><strong aria-hidden="true">1.1.</strong> Avoiding Transient Dependencies</a></li><li class="chapter-item expanded "><a href="../android/securing-files.html"><strong aria-hidden="true">1.2.</strong> Securing Files</a></li><li class="chapter-item expanded "><a href="../android/single-instance-launchmode.html"><strong aria-hidden="true">1.3.</strong> Single Instance Launchmode</a></li></ol></li><li class="chapter-item expanded "><a href="../git/git.html"><strong aria-hidden="true">2.</strong> Git</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../git/count-lines-of-code.html"><strong aria-hidden="true">2.1.</strong> Count Lines Of Code</a></li><li class="chapter-item expanded "><a href="../git/restore-deleted-branch.html" class="active"><strong aria-hidden="true">2.2.</strong> Restore Deleted Branch</a></li></ol></li><li class="chapter-item expanded "><a href="../rust/rust.html"><strong aria-hidden="true">3.</strong> Rust</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../rust/clippy-linter.html"><strong aria-hidden="true">3.1.</strong> Clippy Linter</a></li></ol></li><li class="chapter-item expanded "><a href="../unix/unix.html"><strong aria-hidden="true">4.</strong> Unix</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../unix/identify-os-via-ping.html"><strong aria-hidden="true">4.1.</strong> Identify Os Via Ping</a></li><li class="chapter-item expanded "><a href="../unix/lightweight-vpn-with-wireguard.html"><strong aria-hidden="true">4.2.</strong> Lightweight Vpn with Wireguard</a></li><li class="chapter-item expanded "><a href="../unix/recursive-command-execution.html"><strong aria-hidden="true">4.3.</strong> Recursive Command Execution</a></li><li class="chapter-item expanded "><a href="../unix/simple-dns-server.html"><strong aria-hidden="true">4.4.</strong> Simple Dns Server</a></li></ol></li><li class="chapter-item expanded "><a href="../vim/vim.html"><strong aria-hidden="true">5.</strong> Vim</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../vim/jumps.html"><strong aria-hidden="true">5.1.</strong> Jumps</a></li><li class="chapter-item expanded "><a href="../vim/tabs.html"><strong aria-hidden="true">5.2.</strong> Tabs</a></li></ol></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -147,35 +147,41 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1><a class="header" href="#avoiding-transient-dependencies-in-gradle" id="avoiding-transient-dependencies-in-gradle">Avoiding transient dependencies in Gradle</a></h1>
-<p>If you encounter the following error:</p>
-<pre><code class="language-bash">Duplicate class x found in modules y and z
+                        <h1><a class="header" href="#restoring-a-deleted-branch" id="restoring-a-deleted-branch">Restoring a deleted branch</a></h1>
+<p>You can restore an unpushed branch that you have accidentally deleted.</p>
+<p>First, find out the last commit of the branch using <code>git reflog</code></p>
+<pre><code>f1d69ff HEAD@{1}: commit: Add dns server walkthrough    &lt;---- Most likely the latest commit
+a1a46fc HEAD@{2}: reset: moving to HEAD
+a1a46fc HEAD@{3}: commit: Add vim jumps
+d58c970 HEAD@{4}: commit: Add recursive command execution
+308139e HEAD@{5}: commit: Update summary
+b19c831 HEAD@{6}: commit: Add vim tabs
+1b0978c HEAD@{7}: pull: Merge made by the 'recursive' strategy.
+9499453 HEAD@{8}: commit: Add android transient dependencies
 </code></pre>
-<p>There might be a transitive dependency in your project that is not resolved correctly. To avoid this, you can set the <code>transitive</code> attribute of the dependency to <code>false</code>:</p>
-<pre><code class="language-groovy">dependencies {
-    implementation 'com.android.support:appcompat-v7:23.1.0' {
-        transitive = false
-    }
-}
+<p>Then, create the branch again, but pass it the sha hash of the commit:</p>
+<pre><code class="language-bash">git checkout -b &lt;branch&gt; &lt;sha&gt;
+```
+
+Now, your branch should be restored with all your commits.
+
+## References
+
+- [https://confluence.atlassian.com/bbkb/how-to-restore-a-deleted-branch-765757540.html](https://confluence.atlassian.com/bbkb/how-to-restore-a-deleted-branch-765757540.html)
 </code></pre>
-<p>Note that by setting this attribute to false, the dependencies of that dependency will <strong>not</strong> be installed.</p>
-<h3><a class="header" href="#further-reading" id="further-reading">Further reading:</a></h3>
-<ul>
-<li><a href="https://www.devsbedevin.net/android-understanding-gradle-dependencies-and-resolving-conflicts/">https://www.devsbedevin.net/android-understanding-gradle-dependencies-and-resolving-conflicts/</a></li>
-</ul>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
                         
-                            <a rel="prev" href="../android/android.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="../git/count-lines-of-code.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
                         
 
                         
-                            <a rel="next" href="../android/securing-files.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next" href="../rust/rust.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <i class="fa fa-angle-right"></i>
                             </a>
                         
@@ -187,13 +193,13 @@
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
                 
-                    <a rel="prev" href="../android/android.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="../git/count-lines-of-code.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
                 
 
                 
-                    <a rel="next" href="../android/securing-files.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next" href="../rust/rust.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
                 
