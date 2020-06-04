@@ -17,7 +17,7 @@ b19c831 HEAD@{6}: commit: Add vim tabs
 
 Then, create the branch again, but pass it the sha hash of the commit:
 
-````bash
+```bash
 git checkout -b <branch> <sha>
 ```
 
